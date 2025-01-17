@@ -1,22 +1,28 @@
 import { useState, useEffect } from "react"
 
-const paginateMeals = (meals, currentPage, pageSize = 10) => {
+const paginateMeals = (meals, currentPage, pageSize) => {
+
+    const tempMeals = [
+        ... meals
+    ]
+
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
-    return meals.slice(startIndex, endIndex);
+    return tempMeals.slice(startIndex, endIndex);
 };
 
-const usePaginatedMeals = ({meals, loading, page, mealsPerPage}) => { 
+const usePaginatedMeals = ({meals, loading, page, mealsPerPage}) => {
+    
+    const pageSize = parseInt(mealsPerPage)
 
     const [paginatedMeals, setPaginatedMeals] = useState([])
     const [maxMealsPages, setMaxMealsPages] = useState(0)
 
     useEffect(() => {
-
-        setMaxMealsPages(Math.ceil(meals.length / mealsPerPage))
-        setPaginatedMeals(paginateMeals(meals, page, mealsPerPage))
-    
-    }, [loading, page])
+        setPaginatedMeals([])
+        setMaxMealsPages(Math.ceil(meals.length / pageSize))
+        setPaginatedMeals(paginateMeals(meals, page, pageSize))    
+    }, [loading, page, mealsPerPage])
 
     return {
         paginatedMeals,
