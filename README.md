@@ -38,7 +38,7 @@ Sigue estos pasos para ejecutar el proyecto localmente:
    npm run dev
    ```
 
-5. Abre tu navegador y accede a `http://localhost:3000` para ver la aplicación.
+5. Abre tu navegador y accede a `http://localhost:5173/` para ver la aplicación.
 
 ## Scripts Disponibles
 
