@@ -2,26 +2,15 @@ import { useEffect, useState } from 'react';
 import useMeals from '../hooks/useMeals';
 import usePaginator from '../hooks/usePaginator';
 import { TBody } from './TBody';
+import usePaginatedMeals from '../hooks/usePaginatedMeals';
 
-const paginateMeals = (meals, currentPage, pageSize = 10) => {
-    const startIndex = (currentPage - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
-    return meals.slice(startIndex, endIndex);
-};
 const mealsPerPage = 10;
 
 export const FoodsTable = () => {
 
     const { meals, loading, error } = useMeals();
     const { page, nextPage, previus } = usePaginator();
-    const [paginatedMeals, setPaginatedMeals] = useState([])
-    const [maxMealsPages, setMaxMealsPages] = useState(0)
-
-    useEffect(() => {
-        setMaxMealsPages(Math.ceil(meals.length / mealsPerPage))
-        setPaginatedMeals(paginateMeals(meals, page, mealsPerPage))
-
-    }, [loading, page])
+    const {paginatedMeals, maxMealsPages} = usePaginatedMeals({meals, loading, page, mealsPerPage})
 
     return (
         <>
