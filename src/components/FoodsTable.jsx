@@ -1,17 +1,12 @@
-import useMeals from '../hooks/useMeals';
-import usePaginator from '../hooks/usePaginator';
 import { TBody } from './TBody';
-import usePaginatedMeals from '../hooks/usePaginatedMeals';
 import { useState } from 'react';
 import { Controllers } from './Controllers';
+import useMealsService from '../hooks/useMealsService';
 
 export const FoodsTable = () => {
 
-    const { meals, loading, error } = useMeals();
-    const { page, nextPage, previus } = usePaginator();
     const [mealsPerPage, setMealsPerPage] = useState(10)
-    const { paginatedMeals, maxMealsPages } = usePaginatedMeals({ meals, loading, page, mealsPerPage })
-
+    const {  loading, error, paginatedMeals,maxPages, page, nextPage, previousPage  } = useMealsService(mealsPerPage, 1)
     return (
         <>
 
@@ -24,8 +19,8 @@ export const FoodsTable = () => {
 
                         <Controllers 
                             page={page}
-                            maxMealsPages={maxMealsPages}
-                            previus={previus}
+                            maxMealsPages={maxPages}
+                            previus={previousPage}
                             nextPage={nextPage}
                             setMealsPerPage={setMealsPerPage}
                         />
